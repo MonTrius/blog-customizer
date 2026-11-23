@@ -38,7 +38,6 @@ export const ArticleParamsForm = ({
     isOpen: isMenuOpen,
     onChange: setIsMenuOpen,
     rootRef: modalRef,
-    onClose: () => setIsMenuOpen(false),
   });
 
   const handleToggleMenu = (): void => {
@@ -62,13 +61,14 @@ export const ArticleParamsForm = ({
 
   const handleReset = (): void => {
     setFormValues(defaultArticleState);
+    setPageStyle(defaultArticleState);
   };
 
   return (
     <div ref={modalRef}>
       <ArrowButton isOpen={isMenuOpen} onClick={handleToggleMenu} />
       <aside className={clsx(styles.container, isMenuOpen && styles.container_open)}>
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit} onReset={handleReset}>
           <Text as="h2" size={31} weight={800} uppercase>
             Задайте параметры
           </Text>
@@ -105,12 +105,7 @@ export const ArticleParamsForm = ({
             onChange={handleChange('contentWidth')}
           />
           <div className={styles.bottomContainer}>
-            <Button
-              title="Сбросить"
-              type="clear"
-              htmlType="button"
-              onClick={handleReset}
-            />
+            <Button title="Сбросить" type="clear" htmlType="reset" />
             <Button title="Применить" type="apply" htmlType="submit" />
           </div>
         </form>
