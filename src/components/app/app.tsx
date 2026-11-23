@@ -1,29 +1,28 @@
-import { defaultArticleState } from '@/constants/articleProps.ts';
 import { clsx } from 'clsx';
+import { useState, type CSSProperties } from 'react';
 
-import { ArticleParamsForm } from '@components/article-params-form';
-
+import { ArticleParamsForm } from '../article-params-form/ArticleParamsForm';
 import { Article } from '../article/Article';
-
-import type { CSSProperties } from 'react';
+import { defaultArticleState } from './../../constants/articleProps';
 
 import styles from './app.module.scss';
 
 export const App = (): React.JSX.Element => {
+  const [pageStyle, setPageStyle] = useState(defaultArticleState);
   return (
     <main
       className={clsx(styles.main)}
       style={
         {
-          '--font-family': defaultArticleState.fontFamilyOption.value,
-          '--font-size': defaultArticleState.fontSizeOption.value,
-          '--font-color': defaultArticleState.fontColor.value,
-          '--container-width': defaultArticleState.contentWidth.value,
-          '--bg-color': defaultArticleState.backgroundColor.value,
+          '--font-family': pageStyle.fontFamilyOption.value,
+          '--font-size': pageStyle.fontSizeOption.value,
+          '--font-color': pageStyle.fontColor.value,
+          '--container-width': pageStyle.contentWidth.value,
+          '--bg-color': pageStyle.backgroundColor.value,
         } as CSSProperties
       }
     >
-      <ArticleParamsForm />
+      <ArticleParamsForm setPageStyle={setPageStyle} />
       <Article />
     </main>
   );
